@@ -58,13 +58,14 @@ function Wordspace({ word, setChances, chances }) {
   const [currentChar, setCurrentChar] = useState("");
   const [currentWord, setCurrentWord] = useState(() => 
     toguess.map((char) => 
-      ['a','e','i','o','u',' ',':','-','.','\"','\'','!',','].includes(char.toLowerCase()) ? char : '_'
+      ['a','e','i','o','u',' ',':','-','.','"','\'','!',','].includes(char.toLowerCase()) ? char : '_'
     )
   );
 
   function handleSubmit(e) {
     e.preventDefault();
     if (currentChar === "" || currentChar === " ") return;
+    setCurrentChar(currentChar.toLowerCase());
     if (word.toLowerCase().includes(currentChar)) {
       let newCurrentWord = [...currentWord];
       for (let i = 0; i < toguess.length; i++) {
@@ -88,7 +89,7 @@ function Wordspace({ word, setChances, chances }) {
           type="text"
           maxLength="1"
           id="charInput"
-          onChange={(e) => setCurrentChar(e.target.value)}
+          onChange={(e) => setCurrentChar(e.target.value.toLowerCase())}
           value={currentChar.toLowerCase()}
         />
         <button type="submit">Try</button>
